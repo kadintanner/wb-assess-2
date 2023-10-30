@@ -9,22 +9,22 @@
 // should switch from "Log Out" to "Log In".
 
 // Wait for the document to fully load before executing the script
-document.addEventListener("DOMContentLoaded", function() {
-    // Select the button element by its ID
-    var authButton = document.getElementById("auth");
-  
-    // Add a click event listener to the button
-    authButton.addEventListener("click", function() {
-      // Check the current text content of the button
-      if (authButton.textContent === "Log In") {
-        // If it says "Log In", change it to "Log Out"
-        authButton.textContent = "Log Out";
-      } else {
-        // If it says "Log Out", change it to "Log In"
-        authButton.textContent = "Log In";
-      }
-    });
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleButton = document.getElementById('auth')
+
+  let isLoggedIn = false
+
+  const changeText = () => {
+    if (isLoggedIn) {
+      toggleButton.textContent = 'Log in'
+    } else {
+      toggleButton.textContent = 'Log out'
+    }
+    isLoggedIn = !isLoggedIn
+  }
+
+  toggleButton.addEventListener('click', changeText)
+})
 
 // Send an alert
 //
@@ -33,12 +33,20 @@ document.addEventListener("DOMContentLoaded", function() {
 // A user should be able to enter what they want the alert to say in the
 // text box. Then, they can submit the form to trigger the alert.
 
-/// TODO: replace this with your code
+document.addEventListener('DOMContentLoaded', () => {
+  const alertForm = document.getElementById('send-alert')
+  alertForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    const alertMessage = document.getElementById('alert-message').value
+    alert(alertMessage)
+  })
+})
 
 // Add an item
 //
 // This is a pretty silly feature -- when a user clicks on the
-// button (the one that says "Double-ulick to add an item"), a new list
+// button (the one that says "Double-click to add an item"), a new list
 // item should appear.
 //
 // In other words, whenever a user clicks on the button, just
@@ -50,7 +58,15 @@ document.addEventListener("DOMContentLoaded", function() {
 //     <li>Item</li>  <!-- This was added after double-clicking -->
 //   </ol>
 
-/// TODO: replace this with your code
+document.addEventListener('DOMContentLoaded', () => {
+  const addButton = document.getElementById('item-adder')
+  const list = document.getElementById('list')
+  addButton.addEventListener('click', () => {
+    const newItem = document.createElement('li')
+    newItem.textContent = 'Item'
+    list.appendChild(newItem)
+  })
+})
 
 // Change colors
 //
@@ -61,7 +77,25 @@ document.addEventListener("DOMContentLoaded", function() {
 // Clicking on "Turn Stuff Red" should make text red and clicking on "Turn
 // Stuff Blue" should make text blue.
 
-/// TODO: replace this with your code
+document.addEventListener('DOMContentLoaded', () => {
+
+  const red = document.getElementById('red')
+  const blue = document.getElementById('blue')
+  const colorChanger = document.querySelectorAll('.changes-colors')
+
+  red.addEventListener('click', () => {
+    colorChanger.forEach(element => {
+      element.style.color = 'red'
+    })
+  })
+
+  blue.addEventListener('click', () => {
+    colorChanger.forEach(element => {
+      element.style.color = 'blue'
+    })
+  })
+
+})
 
 // Calculate factorial
 //
@@ -78,7 +112,28 @@ document.addEventListener("DOMContentLoaded", function() {
 //   - calls your function that calculates a factorial
 //   - puts the result of the function inside the "result" span
 
-/// TODO: replace this with your code
+const calculateFactorial = (number) => {
+  if (number === 0 || number === 1) {
+    return 1
+  } else {
+    return number * calculateFactorial(number - 1)
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const factorialForm = document.getElementById('factorial-calculator')
+  const inputField = document.getElementById('factorial-input')
+  const resultSpan = document.getElementById('result')
+
+  factorialForm.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    const number = parseInt(inputField.value)
+    const factorialResult = calculateFactorial(number)
+    resultSpan.textContent = factorialResult
+
+  })
+})
 
 // Validate a form
 //
@@ -95,4 +150,17 @@ document.addEventListener("DOMContentLoaded", function() {
 // the feedback text to say "The word must be at least 4 characters long." and
 // change the color of the text to red..
 
-/// TODO: replace this with your code
+document.getElementById('recommend-word').addEventListener('submit', (event) => {
+  event.preventDefault()
+
+  const wordInput  = document.getElementById('word')
+  const feedbackText = document.querySelector('.form-feedback')
+
+  if (wordInput.value.length >= 4) {
+    feedbackText.textContent = "Thanks for your submission!"
+    feedbackText.style.color = 'green'
+  } else {
+    feedbackText.textContent = "The word must be at least 4 characters long" 
+    feedbackText.style.color = 'red'
+  }
+})
