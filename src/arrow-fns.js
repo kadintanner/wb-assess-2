@@ -27,7 +27,7 @@ const addNums = (num1, num2) => {
 //   => 2
 const max = (num1, num2) => {
     if (num1 <= num2) return num2; else return false
-    }
+}
 // Note: you can also do this on one line:
 // const max = (a, b) => (a >= b ? a : b);
 
@@ -37,14 +37,10 @@ const max = (num1, num2) => {
 // Ex.:
 //   evens([1, 2, 3, 4, 5]);
 //   => [2, 4]
-function evens(nums) {
-   let newArrOfEvens = nums % 2 === 0;
-   return nums.filter(newArrOfEvens)
+const evens = (nums) => {
+   let newArrOfEvens = nums.filter(num => num % 2 === 0)
+   return newArrOfEvens
 }
-
-// const evensNumbsOnly = (nums) => num % 2 === 0; {
-//     const evenNumbs = nums.filter(evens); return evenNumbs
-// }
 
 // Given an array of names, return a new array of greetings for each name. Do
 // this using array iteration methods. Do NOT use a for loop.
@@ -52,11 +48,11 @@ function evens(nums) {
 // Ex.:
 //   createGreetings(['Clive', 'Jill', 'Torgal']);
 //   => ['Hello, Clive!', 'Hello, Jill!', 'Hello, Torgal!']
-let names = ['Clive', 'Jill', 'Torgal']
-let newNamesArr = names.map(createGreetings)
+// let names = ['Clive', 'Jill', 'Torgal']
+// let newNamesArr = names.map(createGreetings)
 
 function createGreetings(names) {
-    return 'Hello, ' + names + '!'
+    return names.map(name => 'Hello, ' + name + '!')
 }
 
 // Given an array of words, return a new array where each word is uppercased
@@ -66,8 +62,10 @@ function createGreetings(names) {
 // Ex.:
 //   loudLongWords(['apple', 'pear', 'cake', 'pinata']);
 //   => ['APPLE', 'PINATA']
-function loudLongWords(words) {}
+// function loudLongWords(words) {}
 
-// const loudLongWords = (words) => words.toUpperCase() + words.length > 4
+const loudLongWords = (words) => {
+   return words.filter(word => word.length > 4).map(word => word.toUpperCase()) 
+}
 
 export { addNums, createGreetings, evens, giveMeTwo, loudLongWords, max };
